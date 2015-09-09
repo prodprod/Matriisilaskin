@@ -110,4 +110,21 @@ public class Matrix {
         return new Matrix(resultMatrix);
     }
     
+    /**
+     * Kertoo tämän matriisin syötteenä annetulla skalaarilla ja palauttaa uuden Matrix-olion, joka sisältää skalaarikertolaskun tuloksen
+     * 
+     * @param a Skalaari, jolla ollaan kertomassa
+     * @return Skalaarikertolaskun tuloksen sisältävä matriisi
+     */
+    
+    public Matrix scalarMul(int a) {
+        int[][] resultMatrix = new int[rows][columns];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                resultMatrix[i][j] = a*matrix[i][j];
+            }
+        }
+        return new Matrix(resultMatrix);
+    }
+    
 }
