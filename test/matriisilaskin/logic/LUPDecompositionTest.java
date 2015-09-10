@@ -32,10 +32,6 @@ public class LUPDecompositionTest {
     public void tearDown() {
     }
     
-    @Test
-    public void LUPDecompositionAntaaOikeanLUMatriisin() {
-        
-    }
     
     @Test
     public void eiSingulaaristaMatriisiaEiTodetaSingulaariseksi() {

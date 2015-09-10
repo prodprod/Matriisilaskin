@@ -1,5 +1,4 @@
 package matriisilaskin.logic;
-import java.util.ArrayList;
 
 /**
  *
@@ -130,16 +129,16 @@ public class LUPDecomposition {
      */
     
     public int signP() {
-        ArrayList<Integer> visited = new ArrayList<Integer>();
+        boolean[] visited2 = new boolean[n];
         boolean odd = false;
         for (int i = 0; i < n; i++) {
-            if (visited.contains(i)) continue;
+            if (visited2[i]) continue;
             else {
                 int curr = i;
                 int length = 0;
-                while (!visited.contains(curr)) {
+                while (!visited2[curr]) {
                     curr = P[curr];
-                    visited.add(i);
+                    visited2[curr] = true;
                     length++;
                 }
                 if (length % 2 == 0) odd = !odd;
@@ -158,12 +157,11 @@ public class LUPDecomposition {
     
     public int determinant() {
         if (singular) return 0;
-        int det = 1;
         Fraction f = LU[0][0];
         for (int i = 1; i < n; i++) {
             f = f.mul(LU[i][i]);
         }
-        det *= f.getNum();
+        int det = f.getNum();
         det *= signP();
         return det;
     }
