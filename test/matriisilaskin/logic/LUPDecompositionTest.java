@@ -68,4 +68,27 @@ public class LUPDecompositionTest {
         int result = testLUP.determinant();
         assertEquals(result, -2034);
     }
+    
+    @Test
+    public void inversePalauttaaNullJosMatriisiSingulaarinen() {
+        int[][] test1 = {{2,4},{4,8}};
+        Matrix testMatrix = new Matrix(test1);
+        LUPDecomposition testLUP = new LUPDecomposition(testMatrix);
+        Fraction[][] inverse = testLUP.inverse();
+        assertNull(inverse);
+    }
+    
+    @Test
+    public void inverseAntaaOikeanTuloksen() {
+        int[][] test1 = {{-4,-2},{9,1}};
+        Matrix testMatrix = new Matrix(test1);
+        LUPDecomposition testLUP = new LUPDecomposition(testMatrix);
+        Fraction[][] inverse = testLUP.inverse();
+        Fraction[][] expected = {{new Fraction(1,14),new Fraction(1,7)},{new Fraction(-9,14), new Fraction(-2,7)}};
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                assertEquals(inverse[i][j],expected[i][j]);
+            }
+        }
+    }
 }

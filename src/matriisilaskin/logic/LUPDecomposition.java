@@ -166,6 +166,54 @@ public class LUPDecomposition {
         return det;
     }
     
+    /**
+     * Matriisi laskee konstruktoriin syötteenä annetun matriisin käänteismatriisin LUP-hajotelmaa käyttäen. Käänteismatriisi löydetään ratkaisemalla yhtälö
+     * LUX = P sarake kerrallaan.
+     * 
+     * @return Sen matriisin käänteismatriisi, jonka LUP-hajotelma laskettiin. Palauttaa null, jos matriisi on singulaarinen.
+     */
+    
+    public Fraction[][] inverse() {
+        if (singular) return null;
+        Fraction[][] inverseMatrix = new Fraction[n][n];
+        
+        /**
+         * Ratkaistaan yhtälö LUX_k = P_k jokaiselle sarakkeelle k erikseen
+         */
+        
+        for (int k = 0; k < n ; k++) {
+            
+            Fraction[] y = new Fraction[n];
+            
+            /**
+             * Ratkaistaan yhtälö Ly = P_k forward substitutionia käyttäen
+             */
+            
+            for (int i = 0; i < n; i++) {
+                if (P[i] == k) {
+                y[i] = new Fraction(1);
+            }
+                else y[i] = new Fraction(0);
+                for (int j = 0; j <= i-1; j++) {
+                    y[i] = y[i].sub(LU[i][j].mul(y[j]));
+                }
+            }
+            
+            /**
+             * Ratkaistaan yhtälö Ux_k = y back substitutionia käyttäen
+             */
+            
+            for (int i = n-1; i >= 0; i--) {
+                inverseMatrix[i][k] = y[i];
+                for (int j = i+1; j < n; j++) {
+                    inverseMatrix[i][k] = inverseMatrix[i][k].sub(LU[i][j].mul(inverseMatrix[j][k]));
+                }
+                inverseMatrix[i][k] = inverseMatrix[i][k].div(LU[i][i]);
+            }
+        }
+        return inverseMatrix;
+    }
+    
     
     
 }
