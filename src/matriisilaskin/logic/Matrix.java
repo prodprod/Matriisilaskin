@@ -206,9 +206,9 @@ public class Matrix {
     }
     
     /**
-     * Metodi laskee matriisien A ja B tulon Strassenin algoritmia käyttäen. Matriisien kokojen oletetaan olevan kakkosen potensseja. Algoritmissa hajotetaan matriisit A ja B neljään eri alimatriisiin. Nämä neljä
-     * matriisia hajotetaan edelleen seitsemäksi alimatriisiksi, joille käytetään Strassenin algoritmia rekursiivisesti. Tulomatriisi saadaan laskemalla näitä 7
-     * alimatriisia yhteen. Tällöin jokaisella askeleella tarvitsee tehdä vain 7 kertolaskua, jolloin algoritmin aikavaativuus on loppujen lopuksi luokkaa O(n^(log_2 7)).
+     * Metodi laskee matriisien A ja B tulon Strassenin algoritmia käyttäen. Matriisien kokojen oletetaan olevan kakkosen potensseja. Algoritmissa hajotetaan matriisit A ja B neljään eri alimatriisiin. Näitä neljää
+     * alimatriisia yhteenlaskemalla ja rekursiivisesti Strassenin algoritmia käyttäen kertomalla saadaan 7 matriisia p_k. Tulomatriisi saadaan laskemalla näitä 7
+     * matriisia p_k yhteen. Tällöin jokaisella rekursioaskeleella tarvitsee tehdä vain 7 rekursiivista alikutsua, jolloin algoritmin aikavaativuus on loppujen lopuksi luokkaa O(n^(log_2 7)).
      * 
      * @param A Kokonaislukumatriisi
      * @param B Kokonaislukumatriisi
