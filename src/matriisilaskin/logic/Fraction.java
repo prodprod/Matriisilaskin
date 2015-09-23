@@ -82,7 +82,7 @@ public class Fraction {
         int gcd = gcd(num,den);
         num /= gcd;
         den /= gcd;
-        if ((num < 0 && den < 0) || (num >= 0 && den < 0)) {
+        if (den < 0) {
             num = -num;
             den = -den;
         } 
@@ -149,7 +149,7 @@ public class Fraction {
     
     @Override
     public String toString() {
-        if (den == 1 || den == 0) return num + "";
+        if (den == 1 || num == 0) return num + "";
         return num + "/" + den;
     }
     

@@ -121,5 +121,31 @@ public class MatrixTest {
             }
         }
     }
+    
+    @Test
+    public void strassenMulPalauttaaNullinJosSyötteetEivätOleSamankokoisiaNeliömatriiseja() {
+        int[][] test1 = {{2,3,1},{1,2,3},{5,6,7}};
+        int[][] test2 = {{2,3},{3,4}};
+        Matrix matrix1 = new Matrix(test1);
+        Matrix matrix2 = new Matrix(test2);
+        Matrix product = matrix1.strassenMul(matrix2,1);
+        assertNull(product);
+    }
+    
+    @Test
+    public void strassenMulAntaaOikeanTuloksen() {
+        int[][] test1 = {{3,4,1,2,5},{5,6,2,3,1},{2,6,3,5,8},{4,5,7,8,1},{2,6,9,3,2}};
+        int[][] test2 = {{-2,3,-9,-2,3},{22,34,-1,4,6},{23,3,6,-2,-2}, {1,1,1,1,1}, {3,4,1,7,-22}};
+        int[][] expected = {{122,170,-18,45,-77},{174,232,-35,20,28},{226,256,7,75,-135}, {274,215,10,13,14}, {344,248,35,19,-17}};
+        Matrix matrix1 = new Matrix(test1);
+        Matrix matrix2 = new Matrix(test2);
+        Matrix product = matrix1.strassenMul(matrix2,1);
+        int[][] actual = product.getMatrix();
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                assertEquals(actual[i][j],expected[i][j]);
+            }
+        }
+    }
 
 }
