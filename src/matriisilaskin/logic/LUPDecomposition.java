@@ -25,6 +25,12 @@ public class LUPDecomposition {
     private int[] P;
     
     /**
+     * Permutaatiomatriisin P merkki eli -1 potenssiin vaihdettujen rivien määrä.
+     */
+    
+    private int signP;
+    
+    /**
      * Boolean, joka kertoo onko syötteenä annettu matriisi singulaarinen
      */
     
@@ -40,6 +46,7 @@ public class LUPDecomposition {
     public LUPDecomposition(Matrix m) {
         n = m.getRows();
         singular = false;
+        signP = 1;
         int[][] matrix = m.getMatrix();
         LU = new Fraction[n][n];
         P = new int[n];
@@ -81,9 +88,11 @@ public class LUPDecomposition {
             }
             
             /*
-            Vaihdetaan k:nnet ja k1:nnet rivit keskenään ja merkitään tehty permutaatio permutaatiomatriisiin
+            Vaihdetaan k:nnet ja k1:nnet rivit keskenään ja merkitään tehty permutaatio permutaatiomatriisiin, jos joudutaan vaihtamaan rivi eli kun k1 ei ole k.
             */
             
+            if (k1 != k) {
+            signP = -signP;
             int temp;
             temp = P[k1];
             P[k1] = P[k];
@@ -95,6 +104,7 @@ public class LUPDecomposition {
                 int d1 = LU[k1][i].getDen();
                 LU[k][i] = new Fraction(n1,d1);
                 LU[k1][i] = new Fraction(n,d);
+            }
             }
             
             /*
@@ -123,29 +133,8 @@ public class LUPDecomposition {
         return singular;
     }
     
-    /**
-     * Metodi laskee LUP-hajotelman permutaatiomatriisin P merkin.
-     * @return -1, jos permutaatio sisältää parittoman määrän parillisen pituisia syklejä. Muuten 1.
-     */
-    
-    public int signP() {
-        boolean[] visited2 = new boolean[n];
-        boolean odd = false;
-        for (int i = 0; i < n; i++) {
-            if (visited2[i]) continue;
-            else {
-                int curr = i;
-                int length = 0;
-                while (!visited2[curr]) {
-                    curr = P[curr];
-                    visited2[curr] = true;
-                    length++;
-                }
-                if (length % 2 == 0) odd = !odd;
-            }
-        }
-        if (odd) return -1;
-        else return 1;
+    public int getSignP() {
+        return signP;
     }
     
     /**
@@ -162,7 +151,7 @@ public class LUPDecomposition {
             f = f.mul(LU[i][i]);
         }
         int det = f.getNum();
-        det *= signP();
+        det *= signP;
         return det;
     }
     
