@@ -12,6 +12,8 @@ public class CalculatorUI {
         Matrix matrix2;
         LUPDecomposition LUP;
         
+        while(true) {
+        
         System.out.println("Valitse laskutoimitus");
         System.out.println("1 - yhteenlasku 2 - vähennyslasku 3 - skalaarikertolasku");
         System.out.println("4 - matriisikertolasku 5 - determinantti 6 - käänteismatriisi");
@@ -21,29 +23,33 @@ public class CalculatorUI {
         switch (input) {
             case "1":
                 matrix1 = readMatrix();
+                if (matrix1 != null) {
                 matrix2 = readMatrix();
-                if (matrix1 != null && matrix2 != null) {
+                if (matrix2 != null) {
                     Matrix result = matrix1.add(matrix2);
                     if (result != null) {
                         System.out.println("Yhteenlaskun tulos on:");
                         printIntMatrix(result);
                     }
                     else System.out.println("Matriisien täytyy olla samankokoisia!");
-                }
+                } else System.out.println("Virheellinen syöte!");
+               }
                 else System.out.println("Virheellinen syöte!");
                 break;
             case "2":
                 matrix1 = readMatrix();
+                if (matrix1 != null) {
                 matrix2 = readMatrix();
-                if (matrix1 != null && matrix2 != null) {
+                if (matrix2 != null) {
                     Matrix result = matrix1.sub(matrix2);
                     if (result != null) {
                         System.out.println("Vähennyslaskun tulos on:");
                         printIntMatrix(result);
                     }
                     else System.out.println("Matriisien täytyy olla samankokoisia!");
-                }
-                else System.out.println("Virheellinen syöte!");
+                } else System.out.println("Virheellinen syöte!");
+               }
+               else System.out.println("Virheellinen syöte!");
                 break;
             case "3":
                 System.out.println("Anna skalaari:");
@@ -62,15 +68,17 @@ public class CalculatorUI {
                 
             case "4":
                 matrix1 = readMatrix();
+                if (matrix1 != null) {
                 matrix2 = readMatrix();
-                if (matrix1 != null && matrix2 != null) {
+                if (matrix2 != null) {
                     Matrix result = matrix1.mul(matrix2);
                     if (result != null) {
                         System.out.println("Kertolaskun tulos on:");
                         printIntMatrix(result);
                     }
                     else System.out.println("Ensimmäisen matriisin sarakkeiden määrä pitää olla sama kuin toisen matriisin rivien määrä!");
-                }
+                } else System.out.println("Virheellinen syöte!");
+               }
                 else System.out.println("Virheellinen syöte!");
                 break;
                 
@@ -112,7 +120,8 @@ public class CalculatorUI {
         
         System.out.println("Jatketaanko laskemista? (k/e)");
                 String input2 = scanner.nextLine();
-                if (input2.equals("k") ||input2.equals("K")) run();
+                if (!input2.equals("k") && !input2.equals("K")) break;
+        }
     }
     
     public static Matrix readMatrix() {
